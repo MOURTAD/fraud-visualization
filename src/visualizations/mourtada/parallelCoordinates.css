@@ -1,0 +1,255 @@
+
+.mourtada-parallel-coordinates {
+    width: 100%;
+    padding: 24px;
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #1f2937;
+    box-sizing: border-box;
+  }
+  
+  .mourtada-parallel-coordinates h2 {
+    margin-top: 0;
+    color: #1e40af;
+  }
+  
+  .mourtada-plot-placeholder {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #64748b;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .mourtada-chart-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 24px;
+  }
+  
+  .mourtada-chart-container svg {
+    display: block;
+    min-width: 850px;
+    height: auto;
+  }
+  
+  .mourtada-axis path,
+  .mourtada-axis line {
+    stroke: #94a3b8;
+  }
+  
+  .mourtada-axis text {
+    fill: #475569;
+    font-size: 11px;
+  }
+  
+  .mourtada-axis .mourtada-axis-label {
+    fill: #1e293b;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+
+  .mourtada-transaction-line {
+    fill: none;
+  stroke-width: 1.2;
+  pointer-events: stroke;
+  cursor: pointer;
+  }
+  
+  /* Legitimate transactions */
+  .mourtada-legitimate {
+    stroke: #2563eb;
+  stroke-opacity: 0.10;
+  stroke-width: 1;
+  }
+  
+  /* Fraudulent transactions */
+  .mourtada-fraud {
+    stroke: #ea580c;
+  stroke-opacity: 0.18;
+  stroke-width: 1.1;
+  }
+
+  .mourtada-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  
+  .mourtada-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #334155;
+  }
+  
+  .mourtada-legend-color {
+    width: 28px;
+    height: 4px;
+    display: inline-block;
+  }
+  
+  .mourtada-legend-legitimate {
+    background-color: #2563eb;
+  }
+  
+  .mourtada-legend-fraud {
+    background-color: #ea580c;
+  }
+  
+  .mourtada-sampling-note {
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .mourtada-filter-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  
+  .mourtada-filter-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .mourtada-filter-buttons {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .mourtada-filter-button {
+    padding: 9px 18px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: white;
+    color: #334155;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .mourtada-filter-button:hover {
+    background: #f1f5f9;
+  }
+  
+  .mourtada-filter-button.active {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+  }
+
+
+
+
+/* Multiple-axis brushing */
+.mourtada-brush .selection {
+  fill: #3b82f6;
+  fill-opacity: 0.18;
+  stroke: #2563eb;
+  stroke-width: 1.5;
+}
+
+.mourtada-brush .overlay {
+  cursor: crosshair;
+}
+
+.mourtada-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.mourtada-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.mourtada-stat-card span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.mourtada-stat-card strong {
+  font-size: 26px;
+  color: #1e293b;
+}
+
+@media (max-width: 600px) {
+  .mourtada-stats {
+    grid-template-columns: 1fr;
+  }
+}
+/* Add to the bottom of parallelCoordinates.css */
+.mourtada-transaction-line {
+  fill: none;
+  pointer-events: none;
+}
+
+.mourtada-details-panel {
+  margin-top: 24px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  color: #1e293b;
+}
+
+.mourtada-details-panel h3 {
+  margin-top: 0;
+  color: #1e40af;
+}
+
+.mourtada-details-panel p {
+  margin: 8px 0;
+}
+
+.mourtada-details-panel button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #1e40af;
+  color: white;
+  cursor: pointer;
+}
+/* Selected transaction — highlight */
+.mourtada-lines .mourtada-transaction-line.mourtada-selected-line {
+  stroke: #eab308;
+  stroke-width: 3.5px;
+  stroke-opacity: 1;
+  opacity: 1;
+  fill: none;
+}
+
+/* Invisible interaction paths */
+.mourtada-hit-area {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 10px;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+
+    

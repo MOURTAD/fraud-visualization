@@ -6,55 +6,112 @@ import "./App.css";
 const visualizations = [
   {
     id: "mourtada",
-    number: "01",
+    author: "Mourtada",
     title: "Identification des profils suspects",
-    description:
-      "Explorer les relations entre les caractéristiques des transactions et identifier les profils associés à la fraude.",
-    technique: "Coordonnées parallèles",
+    description: "Coordonnées parallèles et filtrage multidimensionnel.",
     ready: true,
   },
   {
-    id: "member2",
-    number: "02",
-    title: "Visualisation 2",
-    description: "Visualisation à intégrer par le deuxième membre.",
-    technique: "À définir",
-    ready: false,
+    id: "hiba",
+    author: "Hiba",
+    title: "Identification des facteurs de fraude",
+    description: "Carte de chaleur des catégories et montants.",
+    ready: true,
+    url: "/visualizations/hiba/heatmap.html",
   },
   {
-    id: "member3",
-    number: "03",
-    title: "Visualisation 3",
-    description: "Visualisation à intégrer par le troisième membre.",
-    technique: "À définir",
-    ready: false,
+    id: "salma",
+    author: "Salma",
+    title: "Analyse des anomalies spatiales",
+    description: "Relations entre distance, montant et fraude.",
+    ready: true,
+    url: "/visualizations/salma/scatter.html",
   },
   {
-    id: "member4",
-    number: "04",
-    title: "Visualisation 4",
-    description: "Visualisation à intégrer par le quatrième membre.",
-    technique: "À définir",
-    ready: false,
+    id: "di",
+    author: "Di",
+    title: "Analyse des transactions",
+    description: "Visualisation combinant barres et lignes.",
+    ready: true,
+    url: "/visualizations/di/bar_line.html",
   },
   {
-    id: "member5",
-    number: "05",
-    title: "Visualisation 5",
-    description: "Visualisation à intégrer par le cinquième membre.",
-    technique: "À définir",
-    ready: false,
+    id: "abdelhafid",
+    author: "Hafid",
+    title: "Distribution des montants des transactions",
+    description: "Histogramme comparant transactions frauduleuses et légitimes.",
+    ready: true,
+    url: "/visualizations/abdelhafid/index.html",
   },
 ];
 
+// Tâches analytiques et visualisations qui y répondent
+
+const tasks = [
+  {
+    id: "distribution",
+    number: "01",
+    title: "Comprendre la distribution des montants",
+    description:
+      "Comparer les distributions des montants des transactions frauduleuses et légitimes.",
+    visualizationIds: ["abdelhafid"],
+  },
+  {
+    id: "factors",
+    number: "02",
+    title: "Identifier les secteurs et facteurs de fraude",
+    description:
+      "Comparer les catégories de commerçants, les montants et les combinaisons de caractéristiques associés à des taux de fraude élevés.",
+    visualizationIds: ["hiba", "di", "mourtada"],
+  },
+  {
+    id: "spatial",
+    number: "03",
+    title: "Examiner les anomalies spatiales",
+    description:
+      "Étudier les relations entre la distance, le montant des transactions et la fraude.",
+    visualizationIds: ["salma", "mourtada"],
+  },
+  {
+    id: "profiles",
+    number: "04",
+    title: "Identifier les profils suspects",
+    description:
+      "Combiner plusieurs attributs et filtrer les transactions pour identifier des profils suspects.",
+    visualizationIds: ["mourtada"],
+  },
+  {
+    id: "temporal",
+    number: "05",
+    title: "Analyser les périodes de fraude",
+    description:
+      "Examiner les variations de la fraude au cours des 24 heures de la journée et identifier les périodes les plus sensibles.",
+    visualizationIds: ["di"],
+  },
+];
+
+
 function App() {
   const [activeVisualization, setActiveVisualization] = useState(null);
+  const [mode, setMode] = useState("tasks");
+  const [activeTask, setActiveTask] = useState(null);
 
-  const selected = visualizations.find(
+  const selectedVisualization = visualizations.find(
     (item) => item.id === activeVisualization
   );
 
-  if (selected) {
+  const selectedTask = tasks.find(
+    (task) => task.id === activeTask
+  );
+
+  const availableVisualizations = selectedTask
+    ? visualizations.filter((item) =>
+        selectedTask.visualizationIds.includes(item.id)
+      )
+    : visualizations;
+
+  // Page d'une visualisation
+  if (selectedVisualization) {
     return (
       <main className="dashboard">
         <header className="dashboard-navigation">
@@ -63,18 +120,24 @@ function App() {
             className="back-button"
             onClick={() => setActiveVisualization(null)}
           >
-            ← Retour à l'accueil
+            ← Retour
           </button>
-          <span>Visualisation {selected.number} / 05</span>
+          <span>{selectedVisualization.author}</span>
         </header>
 
         <section className="visualization-page">
-          {selected.id === "mourtada" ? (
+          {activeVisualization === "mourtada" ? (
             <ParallelCoordinates />
+          ) : selectedVisualization.url ? (
+            <iframe
+              key={selectedVisualization.id}
+              src={selectedVisualization.url}
+              title={selectedVisualization.title}
+              className="team-visualization-frame"
+            />
           ) : (
             <div className="placeholder-page">
-              <span className="placeholder-icon">◈</span>
-              <h1>{selected.title}</h1>
+              <h2>{selectedVisualization.title}</h2>
               <p>Cette visualisation sera intégrée prochainement.</p>
             </div>
           )}
@@ -90,12 +153,11 @@ function App() {
           PROJET DE VISUALISATION D'INFORMATIONS
         </span>
 
-        <h1>Exploration des fraudes bancaires</h1>
+        <h1>Analyse des fraudes bancaires</h1>
 
         <p>
-          Un tableau de bord interactif permettant d'explorer les
-          transactions bancaires, de comprendre leurs caractéristiques
-          et d'identifier les comportements suspects.
+          Explorez les transactions bancaires selon vos objectifs
+          d'analyse, à travers cinq visualisations interactives.
         </p>
 
         <div className="dashboard-meta">
@@ -106,55 +168,133 @@ function App() {
       </header>
 
       <section className="dashboard-content">
-        <div className="section-heading">
-          <div>
-            <h2>Explorer les visualisations</h2>
-            <p>
-              Sélectionnez une analyse pour accéder à sa visualisation
-              interactive.
-            </p>
-          </div>
-          <span>05 analyses</span>
+        <div className="exploration-modes">
+          <button
+            type="button"
+            className={mode === "tasks" ? "mode-active" : ""}
+            onClick={() => {
+              setMode("tasks");
+              setActiveTask(null);
+            }}
+          >
+            Explorer par tâches
+          </button>
+
+          <button
+            type="button"
+            className={mode === "visualizations" ? "mode-active" : ""}
+            onClick={() => {
+              setMode("visualizations");
+              setActiveTask(null);
+            }}
+          >
+            Explorer par visualisations
+          </button>
         </div>
 
-        <div className="visualization-grid">
-          {visualizations.map((visualization) => (
-            <button
-              key={visualization.id}
-              type="button"
-              className="visualization-card"
-              onClick={() =>
-                setActiveVisualization(visualization.id)
-              }
-            >
-              <div className="card-top">
-                <span className="card-number">
-                  {visualization.number}
-                </span>
-                <span
-                  className={`card-status ${
-                    visualization.ready ? "ready" : "pending"
-                  }`}
+        {mode === "tasks" && !selectedTask ? (
+          <>
+            <div className="section-heading">
+              <div>
+                <h2>Que souhaitez-vous analyser ?</h2>
+                <p>
+                  Choisissez une tâche pour découvrir les
+                  visualisations qui permettent d'y répondre.
+                </p>
+              </div>
+            </div>
+
+            <div className="visualization-grid">
+              {tasks.map((task) => (
+                <button
+                  key={task.id}
+                  type="button"
+                  className="visualization-card"
+                  onClick={() => setActiveTask(task.id)}
                 >
-                  {visualization.ready ? "Disponible" : "À intégrer"}
-                </span>
-              </div>
+                  <div className="card-top">
+                    <span className="card-number">{task.number}</span>
+                    <span className="card-status ready">
+                      {task.visualizationIds.length} visualisation(s)
+                    </span>
+                  </div>
 
-              <div className="card-content">
-                <span className="card-technique">
-                  {visualization.technique}
-                </span>
-                <h3>{visualization.title}</h3>
-                <p>{visualization.description}</p>
-              </div>
+                  <div className="card-content">
+                    <h3>{task.title}</h3>
+                    <p>{task.description}</p>
+                  </div>
 
-              <div className="card-footer">
-                <span>Ouvrir la visualisation</span>
-                <span className="card-arrow">↗</span>
+                  <div className="card-footer">
+                    <span>Voir les visualisations adaptées</span>
+                    <span className="card-arrow">↗</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="section-heading">
+              <div>
+                {selectedTask && (
+                  <button
+                    type="button"
+                    className="back-button"
+                    onClick={() => setActiveTask(null)}
+                    style={{ marginBottom: 20 }}
+                  >
+                    ← Toutes les tâches
+                  </button>
+                )}
+
+                <h2>
+                  {selectedTask
+                    ? selectedTask.title
+                    : "Nos visualisations"}
+                </h2>
+
+                <p>
+                  {selectedTask
+                    ? selectedTask.description
+                    : "Sélectionnez une visualisation pour l'explorer."}
+                </p>
               </div>
-            </button>
-          ))}
-        </div>
+            </div>
+
+            <div className="visualization-grid">
+              {availableVisualizations.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className="visualization-card"
+                  onClick={() => setActiveVisualization(item.id)}
+                >
+                  <div className="card-top">
+                    <span className="card-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className={`card-status ${
+                      item.ready ? "ready" : "pending"
+                    }`}>
+                      {item.ready ? "Disponible" : "À intégrer"}
+                    </span>
+                  </div>
+
+                  <div className="card-content">
+                    <span className="card-technique">{item.author}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+
+                  <div className="card-footer">
+                    <span>Ouvrir la visualisation</span>
+                    <span className="card-arrow">↗</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <footer className="dashboard-footer">

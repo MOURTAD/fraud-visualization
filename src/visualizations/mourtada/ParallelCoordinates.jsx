@@ -31,7 +31,7 @@ let transactionsPromise = null;
 function loadTransactions() {
   if (!transactionsPromise) {
     transactionsPromise = d3
-      .csv("/data/transactions.csv", (row) => {
+      .csv("/data/credit_card_fraud_2026_TEAM_v1.csv", (row) => {
         const transaction = { ...row };
         AXES.forEach((axis) => {
           transaction[axis] = Number(row[axis]);

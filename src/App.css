@@ -300,3 +300,12 @@
     flex-direction: column;
   }
 }
+.team-visualization-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 130px);
+  min-height: 650px;
+  border: none;
+  border-radius: 16px;
+  background: white;
+}

@@ -18,3 +18,55 @@ body {
   padding: 24px;
   box-sizing: border-box;
 }
+
+/* Choix du mode d'exploration */
+
+.exploration-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px;
+  margin-bottom: 35px;
+  border: 1px solid #e1e7f0;
+  border-radius: 14px;
+  background: #eaf0f8;
+  width: fit-content;
+}
+
+.exploration-modes button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exploration-modes button:hover {
+  color: #294aaf;
+}
+
+.exploration-modes button.mode-active {
+  background: #ffffff;
+  color: #3955a5;
+  box-shadow: 0 2px 10px rgba(30, 50, 90, 0.1);
+}
+
+.exploration-modes button:focus-visible {
+  outline: 2px solid #466bd5;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .exploration-modes {
+    width: 100%;
+  }
+
+  .exploration-modes button {
+    flex: 1;
+    padding: 12px;
+  }
+}

@@ -7,89 +7,87 @@ const visualizations = [
   {
     id: "mourtada",
     author: "Mourtada",
-    title: "Identification des profils suspects",
-    description: "Coordonnées parallèles et filtrage multidimensionnel.",
+    title: "Suspicious Transaction Profile Identification",
+    description: "Parallel coordinates with multidimensional filtering.",
     ready: true,
   },
   {
     id: "hiba",
     author: "Hiba",
-    title: "Identification des facteurs de fraude",
-    description: "Carte de chaleur des catégories et montants.",
+    title: "Fraud Risk Factor Analysis",
+    description: "Heatmap exploring fraud patterns across merchant categories and transaction amounts.",
     ready: true,
     url: "/visualizations/hiba/heatmap.html",
   },
   {
     id: "salma",
     author: "Salma",
-    title: "Analyse des anomalies spatiales",
-    description: "Relations entre distance, montant et fraude.",
+    title: "Spatial Anomaly Analysis",
+    description: "Interactive exploration of transaction distance, amount, and fraud patterns.",
     ready: true,
     url: "/visualizations/salma/scatter.html",
   },
   {
     id: "di",
     author: "Di",
-    title: "Analyse des transactions",
-    description: "Visualisation combinant barres et lignes.",
+    title: "Category and Temporal Fraud Analysis",
+    description: "Bar and line charts comparing merchant fraud rates and hourly fraud patterns.",
     ready: true,
     url: "/visualizations/di/bar_line.html",
   },
   {
     id: "abdelhafid",
     author: "Hafid",
-    title: "Distribution des montants des transactions",
-    description: "Histogramme comparant transactions frauduleuses et légitimes.",
+    title: "Transaction Amount Distribution",
+    description: "Histogram comparing fraudulent and legitimate transaction amounts.",
     ready: true,
     url: "/visualizations/abdelhafid/index.html",
   },
 ];
 
-// Tâches analytiques et visualisations qui y répondent
-
+// Analytical tasks and their associated visualizations
 const tasks = [
   {
     id: "distribution",
     number: "01",
-    title: "Comprendre la distribution des montants",
+    title: "Explore Transaction Amount Distributions",
     description:
-      "Comparer les distributions des montants des transactions frauduleuses et légitimes.",
+      "Compare the amount distributions of fraudulent and legitimate transactions.",
     visualizationIds: ["abdelhafid"],
   },
   {
     id: "factors",
     number: "02",
-    title: "Identifier les secteurs et facteurs de fraude",
+    title: "Identify Fraud Risk Factors",
     description:
-      "Comparer les catégories de commerçants, les montants et les combinaisons de caractéristiques associés à des taux de fraude élevés.",
+      "Explore merchant categories, transaction amounts, and attribute combinations associated with higher fraud rates.",
     visualizationIds: ["hiba", "di", "mourtada"],
   },
   {
     id: "spatial",
     number: "03",
-    title: "Examiner les anomalies spatiales",
+    title: "Investigate Spatial Anomalies",
     description:
-      "Étudier les relations entre la distance, le montant des transactions et la fraude.",
+      "Examine relationships between transaction distance, amount, and fraudulent activity.",
     visualizationIds: ["salma", "mourtada"],
   },
   {
     id: "profiles",
     number: "04",
-    title: "Identifier les profils suspects",
+    title: "Identify Suspicious Transaction Profiles",
     description:
-      "Combiner plusieurs attributs et filtrer les transactions pour identifier des profils suspects.",
+      "Combine multiple transaction attributes and apply filters to identify suspicious patterns.",
     visualizationIds: ["mourtada"],
   },
   {
     id: "temporal",
     number: "05",
-    title: "Analyser les périodes de fraude",
+    title: "Analyze Fraud Patterns Over Time",
     description:
-      "Examiner les variations de la fraude au cours des 24 heures de la journée et identifier les périodes les plus sensibles.",
+      "Explore fraud activity across the 24 hours of the day and identify potential peak-risk periods.",
     visualizationIds: ["di"],
   },
 ];
-
 
 function App() {
   const [activeVisualization, setActiveVisualization] = useState(null);
@@ -110,7 +108,7 @@ function App() {
       )
     : visualizations;
 
-  // Page d'une visualisation
+  // Visualization page
   if (selectedVisualization) {
     return (
       <main className="dashboard">
@@ -120,7 +118,7 @@ function App() {
             className="back-button"
             onClick={() => setActiveVisualization(null)}
           >
-            ← Retour
+            ← Back
           </button>
           <span>{selectedVisualization.author}</span>
         </header>
@@ -138,7 +136,7 @@ function App() {
           ) : (
             <div className="placeholder-page">
               <h2>{selectedVisualization.title}</h2>
-              <p>Cette visualisation sera intégrée prochainement.</p>
+              <p>This visualization will be available soon.</p>
             </div>
           )}
         </section>
@@ -150,19 +148,19 @@ function App() {
     <main className="dashboard">
       <header className="dashboard-header">
         <span className="dashboard-label">
-          PROJET DE VISUALISATION D'INFORMATIONS
+          INFORMATION VISUALIZATION PROJECT
         </span>
 
-        <h1>Analyse des fraudes bancaires</h1>
+        <h1>Credit Card Fraud Analysis</h1>
 
         <p>
-          Explorez les transactions bancaires selon vos objectifs
-          d'analyse, à travers cinq visualisations interactives.
+          Explore banking transactions through five interactive
+          visualizations designed to support fraud investigation.
         </p>
 
         <div className="dashboard-meta">
-          <span>20 000 transactions</span>
-          <span>5 visualisations</span>
+          <span>20,000 Transactions</span>
+          <span>5 Visualizations</span>
           <span>D3.js</span>
         </div>
       </header>
@@ -177,7 +175,7 @@ function App() {
               setActiveTask(null);
             }}
           >
-            Explorer par tâches
+            Explore by Tasks
           </button>
 
           <button
@@ -188,7 +186,7 @@ function App() {
               setActiveTask(null);
             }}
           >
-            Explorer par visualisations
+            Explore by Visualizations
           </button>
         </div>
 
@@ -196,10 +194,10 @@ function App() {
           <>
             <div className="section-heading">
               <div>
-                <h2>Que souhaitez-vous analyser ?</h2>
+                <h2>What would you like to investigate?</h2>
                 <p>
-                  Choisissez une tâche pour découvrir les
-                  visualisations qui permettent d'y répondre.
+                  Select an analytical task to discover the
+                  visualizations that can help answer your questions.
                 </p>
               </div>
             </div>
@@ -213,9 +211,14 @@ function App() {
                   onClick={() => setActiveTask(task.id)}
                 >
                   <div className="card-top">
-                    <span className="card-number">{task.number}</span>
+                    <span className="card-number">
+                      {task.number}
+                    </span>
                     <span className="card-status ready">
-                      {task.visualizationIds.length} visualisation(s)
+                      {task.visualizationIds.length}{" "}
+                      {task.visualizationIds.length === 1
+                        ? "Visualization"
+                        : "Visualizations"}
                     </span>
                   </div>
 
@@ -225,7 +228,7 @@ function App() {
                   </div>
 
                   <div className="card-footer">
-                    <span>Voir les visualisations adaptées</span>
+                    <span>Explore Related Visualizations</span>
                     <span className="card-arrow">↗</span>
                   </div>
                 </button>
@@ -243,20 +246,20 @@ function App() {
                     onClick={() => setActiveTask(null)}
                     style={{ marginBottom: 20 }}
                   >
-                    ← Toutes les tâches
+                    ← All Tasks
                   </button>
                 )}
 
                 <h2>
                   {selectedTask
                     ? selectedTask.title
-                    : "Nos visualisations"}
+                    : "Our Visualizations"}
                 </h2>
 
                 <p>
                   {selectedTask
                     ? selectedTask.description
-                    : "Sélectionnez une visualisation pour l'explorer."}
+                    : "Choose a visualization to explore the transaction data."}
                 </p>
               </div>
             </div>
@@ -273,21 +276,26 @@ function App() {
                     <span className="card-number">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className={`card-status ${
-                      item.ready ? "ready" : "pending"
-                    }`}>
-                      {item.ready ? "Disponible" : "À intégrer"}
+
+                    <span
+                      className={`card-status ${
+                        item.ready ? "ready" : "pending"
+                      }`}
+                    >
+                      {item.ready ? "Available" : "Coming Soon"}
                     </span>
                   </div>
 
                   <div className="card-content">
-                    <span className="card-technique">{item.author}</span>
+                    <span className="card-technique">
+                      {item.author}
+                    </span>
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
                   </div>
 
                   <div className="card-footer">
-                    <span>Ouvrir la visualisation</span>
+                    <span>Open Visualization</span>
                     <span className="card-arrow">↗</span>
                   </div>
                 </button>
@@ -298,7 +306,7 @@ function App() {
       </section>
 
       <footer className="dashboard-footer">
-        Projet universitaire · Visualisation d'informations · D3.js
+        University Project · Information Visualization · D3.js
       </footer>
     </main>
   );
